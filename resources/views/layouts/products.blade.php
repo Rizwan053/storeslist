@@ -68,7 +68,7 @@
 
 
 <div class="list-group" id="myList" class="" role="tablist">
-  <a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="list" href="#home" role="tab">Home</a><hr>
+<a class="list-group-item list-group-item-action bg-dark text-white" data-toggle="list" href="{{route('stores.index')}}" role="tab">Stores</a><hr>
   <a class="list-group-item list-group-item-action" data-toggle="list" href="{{route('products.index')}}" role="tab">Products</a><hr>
   <a class="list-group-item list-group-item-action" data-toggle="list" href="#messages" role="tab">Orders</a><hr>
   <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings" role="tab">Customers</a><hr>

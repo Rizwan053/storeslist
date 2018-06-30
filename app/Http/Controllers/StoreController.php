@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Store;
-use App\Product;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Validator;
 
-class ProductController extends Controller
+class StoreController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        return view('owner.products.index',compact('products'));
-        
+        $stores = Store::all();
+        return view('owner.stores.index',compact('stores'));
     }
 
     /**
@@ -28,9 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $store = Store::pluck('name','id')->all();
-        return view('owner.products.add',compact('store'));
-        
+        return view('owner.stores.add');
     }
 
     /**
@@ -42,23 +37,20 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validation = $request->validate([
-            'name'=>'required',
-            'image'=>'required',
-            'price'=>'required',
-            'quantity'=>'required',
+                'name'=>'required',
+                'image'=>'required',
+                'address'=>'required',
         ]);
 
-        $input = $request->all();
-        if($file = $input['image']){
+            $input = $request->all();
+        if ($file = $input['image']) {
             $name = $file->getClientOriginalName();
-            $input['image']=$name;
-            $file->move('img',$name);
-            $product = new Product();
-            $product->create($input)->save();
+            $input['image'] = $name;
+            $file->move('str_img', $name);
         }
-        return redirect()->route('products.index');
-        
-       
+        $store = new Store();
+        $store->create($input);
+        return redirect()->route('products.create')->withOrder('Add Some Product to Store');
     }
 
     /**
@@ -69,10 +61,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $store = Store::pluck('name', 'id')->all();
-
-        $product = Product::findorFail($id);
-        return view('owner.products.edit', compact('product','store'));
+        //
     }
 
     /**
@@ -83,7 +72,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $stores = Store::findorFail($id);
+        return view('owner.stores.edit', compact('stores'));
     }
 
     /**
@@ -95,24 +85,22 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $validation = $request->validate([
             'name' => 'required',
-            // 'image' => 'required',
-            'price' => 'required',
-            'quantity' => 'required',
+            'address' => 'required',
+            
         ]);
 
         $input = $request->all();
         if ($file = $request->file['image']) {
             $name = $file->getClientOriginalName();
             $input['image'] = $name;
-            $file->move('img', $name);
+            $file->move('str_img', $name);
         }
-        $product = new Product();
-        $product->update($input);
+        $store = new Store();
+        $store->update($input);
 
-        return redirect()->route('products.index')->withUpdate('Product Updated Succesfully');
+        return redirect()->route('stores.index')->withUpdate('Stores Updated Succesfully');
     }
 
     /**
@@ -123,9 +111,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $pro = Product::findorFail($id);
-        unlink(public_path().'/img/'.$pro->image);
-        $pro->delete();
-        return redirect()->back()->withDelete("Product Deleted Succesfully");
+        $store = Store::findorFail($id);
+        unlink(public_path() . '/str_img/' . $store->image);
+        $store->delete();
+        return redirect()->back()->withDelete("Store Deleted Succesfully");
     }
 }

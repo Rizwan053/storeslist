@@ -11,10 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::resource('/', 'IndexController');
 
 Route::resource('owner/products', 'ProductController');
+Route::resource('owner/stores', 'StoreController');
 
 

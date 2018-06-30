@@ -34,6 +34,10 @@
 {!! Form::text('name',null,['class'=>'form-control']) !!}
 </div>
 <div class='form-group'>
+{!! Form::label('store_id', 'Store Name:') !!}
+{!! Form::select('store_id',[''=>'Choose Store']+$store,null,['class'=>'form-control']) !!}
+</div>
+<div class='form-group'>
 {!! Form::label('image', 'Upload Product Image:') !!}
 {!! Form::file('image',null,['class'=>'form-control']) !!}
 </div>
