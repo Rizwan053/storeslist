@@ -45,6 +45,7 @@
                                 <table class="table table-striped" style="background-image: url(http://thaymanhinhlenovo.info/wp-content/uploads/2017/12/chalkboard-wallpaper-chalkboard-wallpaper-4-chalkboard-chalkboard-wallpaper-amazon-chalkboard-wallpaper-vs-paint.jpg); opacity: 0.9">
                                     <thead class='text-white'>
                                         <th>ID</th>
+                                        <th>Store Name</th>
                                     	<th>Name</th>
                                     	<th>Image</th>
                                     	<th>Price</th>
@@ -57,6 +58,7 @@
 @foreach($products as $pro)
                                         <tr class="text-white" >
                                         <td>{{$pro->id}}</td>
+                                        <td>{{$pro->store->name}}</td>
                                         <td>{{$pro->name}}</td>
                                         <td><img height=50 src="/img/{{$pro->image}}" alt=""></td>
                                         <td>Rs {{$pro->price}}</td>

@@ -8,7 +8,7 @@ class Product extends Model
 {
     protected $fillable = ['store_id','name','image','price','quantity'];
 
-    public function products(){
-        $this->belongsTo('App\Store');
+    public function store(){
+        return $this->belongsTo('App\Store');
     }
 }

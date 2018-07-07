@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Store;
+use App\Product;
 use Illuminate\Http\Request;
 
 class StoreController extends Controller
@@ -112,8 +113,14 @@ class StoreController extends Controller
     public function destroy($id)
     {
         $store = Store::findorFail($id);
+        $product = Product::firstorfail()->where('store_id', $id);
+        // unlink(public_path() . '/img/' . $product->image);
+        $product->delete();
         unlink(public_path() . '/str_img/' . $store->image);
         $store->delete();
         return redirect()->back()->withDelete("Store Deleted Succesfully");
+
+
+       
     }
 }

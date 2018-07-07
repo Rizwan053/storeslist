@@ -21,3 +21,7 @@ Route::resource('owner/products', 'ProductController');
 Route::resource('owner/stores', 'StoreController');
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
